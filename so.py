@@ -2,7 +2,6 @@ import threading
 import time
 import os
 
-# --- Repositório de Programas Disponíveis (como se estivessem "no HD") ---
 AVAILABLE_PROGRAMS = {
     "Navegador Web": 256,
     "Editor de Texto": 128,
@@ -11,9 +10,6 @@ AVAILABLE_PROGRAMS = {
     "Jogo 3D": 512,
     "Calculadora": 32,
 }
-
-# As classes Process, ProcessManager e DeadlockDetector não precisam de alterações.
-# Vou incluí-las aqui para que o código esteja completo.
 
 class Process:
     READY = 'PRONTO'
@@ -51,9 +47,6 @@ class ProcessManager:
         return False
 
 class MemoryManager:
-    """
-    MODIFICADO: Adicionada a função get_free_memory
-    """
     def __init__(self, total_memory):
         self.total_memory = total_memory
         self.allocations = {}
@@ -111,7 +104,7 @@ class OperatingSystem:
     def __init__(self):
         print("--- Sistema Operacional Simulado Inicializado ---")
         self.process_manager = ProcessManager()
-        self.memory_manager = MemoryManager(1024) # Total de 1024 MB (1 GB)
+        self.memory_manager = MemoryManager(1024)
         self.deadlock_detector = DeadlockDetector(self.process_manager)
 
     def list_processes(self):
@@ -128,7 +121,6 @@ class OperatingSystem:
         if pid not in self.process_manager.process_table:
             print(f"❌ [ERRO] Processo com PID {pid} não encontrado.")
             return False
-
         process = self.process_manager.process_table[pid]
         print(f"🔪 Finalizando {process.name} (PID: {pid})...")
         self.memory_manager.free(process)
@@ -159,21 +151,15 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main():
-    """
-    MODIFICADO: A função principal agora exibe a memória livre e a lista de
-    programas disponíveis no menu.
-    """
     so = OperatingSystem()
     
     while True:
-        # Pega a memória livre atual para exibir no menu
         free_mem = so.memory_manager.get_free_memory()
         total_mem = so.memory_manager.total_memory
 
         print("\n╔════════════════════════════════════════════════════════════╗")
         print(f"║ Memória Livre: {free_mem} MB / {total_mem} MB{' ' * (31-len(str(free_mem))-len(str(total_mem)))}║")
         print("╠═══════ Programas Disponíveis para Iniciar ══════════════╣")
-        # Lista os programas que podem ser inicializados
         for name, mem_cost in AVAILABLE_PROGRAMS.items():
             print(f"║ -> {name:<25} (Requer: {mem_cost} MB){' ' * (15-len(str(mem_cost)))}║")
         print("╠═══════════════════════════ MENU ═══════════════════════════╣")

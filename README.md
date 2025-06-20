@@ -59,3 +59,12 @@ python main.py
 ## 🧪 Sobre a Simulação de Deadlock
 
 A simulação cria dois processos que seguram recursos diferentes e solicitam o recurso um do outro, formando um ciclo clássico de deadlock. O sistema detecta esse ciclo, exibe uma mensagem e permite ao usuário escolher qual processo finalizar para resolver o deadlock, liberando recursos e memória.
+
+---
+
+## 👥 Autores
+
+- Diogo Buzatto – 111809<br>
+- Lucas Ferreira – 111519<br>
+- Mauricio Sarpa – 112824<br>
+- Pablo Novais – 112070<br>

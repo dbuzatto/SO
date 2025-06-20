@@ -1,71 +1,69 @@
+Claro! Aqui está um README atualizado e adequado para o seu projeto com interface Tkinter e resolução interativa de deadlock:
+
+---
+
 # 🖥️ Simulador de Sistema Operacional
 
-Este projeto é um simulador didático de um sistema operacional em Python, com funcionalidades básicas de gerenciamento de processos, alocação de memória e detecção de deadlocks. É uma excelente ferramenta para fins educacionais e demonstrações interativas de conceitos fundamentais de sistemas operacionais.
+Simulador didático de um sistema operacional simples em Python com interface gráfica Tkinter, focado em gerenciamento básico de processos, memória e deadlocks.
 
 ---
 
 ## 📋 Funcionalidades
 
-- **Gerenciamento de Processos**: Criação, listagem e finalização de processos.
-- **Gerenciamento de Memória**: Alocação de memória dinâmica e cálculo de memória disponível.
-- **Detecção de Deadlocks**: Simulação de situações de deadlock com recursos cruzados e verificação de ciclos.
-- **Menu Interativo em Console**: Interface simples para usuários interagirem com o sistema simulado.
-- **Programas Pré-definidos**: Lista de programas fictícios disponíveis para "execução".
+* **Gerenciamento de Processos:** Criação, listagem, finalização individual ou em massa de processos.
+* **Gerenciamento de Memória:** Alocação dinâmica de memória, liberação e monitoramento do uso total.
+* **Detecção e Resolução de Deadlocks:** Simulação de deadlock entre processos com recursos compartilhados e possibilidade de resolver finalizando processos envolvidos.
+* **Interface Gráfica com Tkinter:** Menu interativo para iniciar programas, finalizar processos, listar processos ativos e simular deadlocks com escolha visual para resolver conflitos.
+* **Programas Pré-definidos:** Lista fictícia de programas com diferentes requisitos de memória para iniciar processos.
 
 ---
 
 ## 🚀 Como Executar
 
-1. **Requisitos**:
-   - Python 3.7 ou superior
+### Requisitos
 
-2. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/seuusuario/simulador-so.git
-   cd simulador-so
-   ```
+* Python 3.7 ou superior
+* Tkinter instalado (normalmente já vem com Python)
 
-3. **Execute o script**:
-   ```bash
-   python so.py
-   ```
+### Passos
 
----
+1. Clone o repositório:
 
-## 📸 Exemplo de Execução
-
+```bash
+git clone https://github.com/seuusuario/simulador-so.git
+cd simulador-so
 ```
-╔════════════════════════════════════════════════════════════╗
-║ Memória Livre: 1024 MB / 1024 MB                          ║
-╠═══════ Programas Disponíveis para Iniciar ══════════════╣
-║ -> Navegador Web             (Requer: 256 MB)           ║
-║ -> Editor de Texto           (Requer: 128 MB)           ║
-║ -> Player de Musica          (Requer: 64 MB)            ║
-║ -> IDE de Programacao        (Requer: 384 MB)           ║
-║ -> Jogo 3D                   (Requer: 512 MB)           ║
-║ -> Calculadora               (Requer: 32 MB)            ║
-╠═══════════════════════════ MENU ═══════════════════════════╣
-║ 1. Iniciar um Programa                                     ║
-║ 2. Finalizar um Processo                                   ║
-║ 3. Simular e Analisar Deadlock                             ║
-║ 4. Listar Processos Ativos                                 ║
-║ 5. Sair                                                    ║
-╚════════════════════════════════════════════════════════════╝
+
+2. Execute o simulador:
+
+```bash
+python main.py
 ```
 
 ---
 
-## 🛠️ Estrutura de Código
+## 📸 Exemplo da Interface
 
-- `Process`, `ProcessManager`: classes responsáveis por representar e gerenciar processos.
-- `MemoryManager`: controla a alocação e liberação de memória.
-- `DeadlockDetector`: simula e identifica deadlocks baseando-se em dependências entre processos e recursos.
-- `OperatingSystem`: orquestra os componentes e fornece funções principais.
-- `main()`: função que exibe o menu interativo e responde a comandos do usuário.
+* Tela principal com botões para iniciar programas, finalizar processos (por PID ou todos), simular deadlock e listar processos.
+* Logs de eventos e mensagens exibidos em tempo real.
+* Ao detectar deadlock, janela popup para escolha do processo a ser finalizado para resolver o conflito.
 
 ---
 
-## 🧪 Teste de Deadlock
+## 🛠️ Estrutura do Código
 
-A simulação de deadlock cria dois processos com recursos distintos e pedidos cruzados, reproduzindo um ciclo de espera típico de deadlocks. O sistema identifica e notifica o usuário sobre o ciclo detectado.
+* **Process, ProcessManager:** definem e gerenciam processos criados.
+* **MemoryManager:** controla uso e alocação de memória.
+* **DeadlockDetector:** simula solicitações de recursos e detecta ciclos de deadlock.
+* **OperatingSystem:** coordena todos os componentes e operações.
+* **OSApp:** interface gráfica em Tkinter que conecta o sistema operacional simulado com a interação do usuário.
 
+---
+
+## 🧪 Sobre a Simulação de Deadlock
+
+A simulação cria dois processos que seguram recursos diferentes e solicitam o recurso um do outro, formando um ciclo clássico de deadlock. O sistema detecta esse ciclo, exibe uma mensagem e permite ao usuário escolher qual processo finalizar para resolver o deadlock, liberando recursos e memória.
+
+---
+
+Qualquer dúvida ou sugestão, é só falar!

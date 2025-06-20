@@ -26,8 +26,8 @@ Simulador didático de um sistema operacional simples em Python com interface gr
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seuusuario/simulador-so.git
-cd simulador-so
+git clone https://github.com/seuusuario/SO.git
+cd SO.git
 ```
 
 2. Execute o simulador:

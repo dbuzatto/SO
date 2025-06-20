@@ -1,7 +1,3 @@
-Claro! Aqui está um README atualizado e adequado para o seu projeto com interface Tkinter e resolução interativa de deadlock:
-
----
-
 # 🖥️ Simulador de Sistema Operacional
 
 Simulador didático de um sistema operacional simples em Python com interface gráfica Tkinter, focado em gerenciamento básico de processos, memória e deadlocks.
@@ -63,7 +59,3 @@ python main.py
 ## 🧪 Sobre a Simulação de Deadlock
 
 A simulação cria dois processos que seguram recursos diferentes e solicitam o recurso um do outro, formando um ciclo clássico de deadlock. O sistema detecta esse ciclo, exibe uma mensagem e permite ao usuário escolher qual processo finalizar para resolver o deadlock, liberando recursos e memória.
-
----
-
-Qualquer dúvida ou sugestão, é só falar!

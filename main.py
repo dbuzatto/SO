@@ -94,8 +94,8 @@ class DeadlockDetector:
                 if req1 in p2.resources_held:
                     req2 = self.requests.get(pid2)
                     if req2 and req2 in p1.resources_held:
-                        return f"🚨🚨🚨 Deadlock detectado entre '{p1.name}' e '{p2.name}'!"
-        return "✅ Nenhum deadlock encontrado no momento."
+                        return (p1, p2), f"🚨🚨🚨 Deadlock detectado entre '{p1.name}' e '{p2.name}'!"
+        return None, "✅ Nenhum deadlock encontrado no momento."
     
     def clear_requests(self):
         self.requests.clear()
@@ -146,7 +146,7 @@ class OperatingSystem:
             if ok2:
                 self.memory_manager.free(p2)
                 self.process_manager.remove_process(p2.pid)
-            return "\n".join(msgs)
+            return None, "\n".join(msgs)
 
         r1 = "Impressora"
         r2 = "Scanner"
@@ -156,14 +156,10 @@ class OperatingSystem:
         self.deadlock_detector.request_resource(p1, r2)
         self.deadlock_detector.request_resource(p2, r1)
 
-        deadlock_msg = self.deadlock_detector.check()
+        deadlock_info, deadlock_msg = self.deadlock_detector.check()
         msgs.append(deadlock_msg)
 
-        self.terminate_process(p1.pid)
-        self.terminate_process(p2.pid)
-        self.deadlock_detector.clear_requests()
-
-        return "\n".join(msgs)
+        return deadlock_info, "\n".join(msgs)
 
 class OSApp:
     def __init__(self, root):
@@ -251,9 +247,35 @@ class OSApp:
         tk.Button(popup, text="Finalizar Todos", command=finalizar_todos).pack(side=tk.RIGHT, padx=10, pady=10)
 
     def simulate_deadlock(self):
-        msg = self.os.simulate_deadlock()
+        deadlock_info, msg = self.os.simulate_deadlock()
         self.log_msg(msg)
         self.update_memory()
+
+        if deadlock_info:
+            p1, p2 = deadlock_info
+            self.ask_resolve_deadlock(p1, p2)
+
+    def ask_resolve_deadlock(self, p1, p2):
+        popup = tk.Toplevel(self.root)
+        popup.title("Deadlock Detectado!")
+
+        tk.Label(popup, text="Deadlock detectado entre:").pack(pady=5)
+        tk.Label(popup, text=f"{p1}").pack(pady=5)
+        tk.Label(popup, text=f"{p2}").pack(pady=5)
+        tk.Label(popup, text="Escolha um processo para finalizar e resolver o deadlock:").pack(pady=5)
+
+        def finalizar_processo(process):
+            ok, msg = self.os.terminate_process(process.pid)
+            self.os.deadlock_detector.clear_requests()
+            self.log_msg(msg)
+            self.update_memory()
+            popup.destroy()
+
+        btn1 = tk.Button(popup, text=f"Finalizar {p1.name} (PID {p1.pid})", command=lambda: finalizar_processo(p1))
+        btn1.pack(side=tk.LEFT, padx=10, pady=10)
+
+        btn2 = tk.Button(popup, text=f"Finalizar {p2.name} (PID {p2.pid})", command=lambda: finalizar_processo(p2))
+        btn2.pack(side=tk.RIGHT, padx=10, pady=10)
 
     def list_processes(self):
         procs = self.os.list_processes()
